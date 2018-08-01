@@ -17,6 +17,11 @@ public class BulletRoundController : MonoBehaviour
 		// transform.parent.transform.rotation *= Quaternion.Euler(0, 0, 1);
 	}
 
+	void FixedUpdate()
+	{
+		Shooting();
+	}
+
 	private void OnEnable() 
 	{
 		BulletRoundSpawner.OnSpawnFinished += NavigateBullets;
@@ -29,18 +34,19 @@ public class BulletRoundController : MonoBehaviour
 
 	private void NavigateBullets()
 	{
-		Quaternion rotation = transform.parent.transform.rotation;
-		transform.rotation = rotation;
+		// Quaternion rotation = transform.parent.transform.rotation;
+		// transform.rotation = rotation;
 		// move forward
 		// bullet.transform.position += new Vector3(0, -1, 0);
-		InvokeRepeating("Shooting", .06f, 0.1f);
-		InvokeRepeating("ClearBullets", 2f, 2f);
+		// InvokeRepeating("Shooting", .06f, 0.1f);
+		InvokeRepeating("ClearBullets", 8f, 8f);
 	}
 
 
 	void Shooting()
 	{
-		transform.localPosition += new Vector3(0, 1f, 0) * Time.deltaTime;
+		// transform.localPosition += new Vector3(0, 1f, 0) * Time.deltaTime;
+		transform.Translate(Vector2.up * 5f * Time.fixedDeltaTime, Space.Self);
 	}
 	void ClearBullets()
 	{
