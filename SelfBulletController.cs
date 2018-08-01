@@ -8,8 +8,8 @@ public class SelfBulletController : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		StartCoroutine(Shooting());
-		StartCoroutine(ClearBullets());
+		InvokeRepeating("Shooting", 0.1f, 0.01f);
+		InvokeRepeating("ClearBullets", 2f, 2f);
 	}
 	
 	// Update is called once per frame
@@ -17,22 +17,22 @@ public class SelfBulletController : MonoBehaviour
 	{
 		// transform.position += transform.up * bulletSpeed * Time.fixedDeltaTime;
 	}
+
+	private void FixedUpdate() 
+	{
+		
+	}
 	void OnBecameInvisible() 
 	{
 		
 	}
 
-	IEnumerator Shooting()
+	void Shooting()
 	{
-		while(true)
-		{
-			transform.position += transform.up * bulletSpeed;
-			yield return new WaitForSeconds(.01f);
-		}
+		transform.position += transform.up * bulletSpeed;
 	}
-	IEnumerator ClearBullets()
+	void ClearBullets()
 	{
-		yield return new WaitForSeconds(2f);
 		Destroy(gameObject);
 		Destroy(transform.parent.gameObject);
 	}
