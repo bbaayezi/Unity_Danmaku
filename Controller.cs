@@ -6,9 +6,12 @@ public class Controller : MonoBehaviour
 {
 
 	public GameObject sprite;
-	public float moveSpeed;
+	public float moveSpeed = .01f;
 	private float m_MovementInput;
 	private float m_TurnInput;
+	private int frameCount = 0;
+	Vector2 screenPoint;
+	public Camera _camera;
 	// Use this for initialization
 	void Start () 
 	{
@@ -31,6 +34,11 @@ public class Controller : MonoBehaviour
 
 	void HandleMovement()
 	{
+		Vector2 pos = transform.position;
+		pos = new Vector2((int)pos.x, (int)pos.y);
+		transform.position = pos;
+
+		Vector2 lastPixel = _camera.WorldToScreenPoint(sprite.transform.position);
 		Vector3 movement = Vector3.zero;
 		// vertical
 		m_MovementInput = Input.GetAxis("Vertical");
@@ -78,7 +86,6 @@ public class Controller : MonoBehaviour
 			}
 
 		}
-		
 		sprite.transform.position += movement;
 	}
 	/// <summary>
